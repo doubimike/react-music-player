@@ -1,12 +1,11 @@
 import React from 'react'
 import Header from './components/header'
-import Progress from './components/progress'
+import Player from './page/player'
 
-let duration = null;
 let Root = React.createClass({
 	getInitialState(){
 		return {
-			progress:'-'
+
 		}
 	},
 	componentDidMount(){
@@ -19,33 +18,24 @@ let Root = React.createClass({
 			supplied:'mp3',
 			wmode:'window'
 		});
-		$('#player').bind($.jPlayer.event.timeupdate,(e)=>{
-			duration = e.jPlayer.status.duration;
-			this.setState({
-				progress:e.jPlayer.status.currentPercentAbsolute
-			})
-		})
 	},
 	componentWillUnMount(){
-		$('#player').unbind($.jPlayer.event.timeupdate)
-	},
-	progressChangeHandler(progress){
-		console.log('from root widget',progress)
-		$('#player').jPlayer('play',duration*progress)
-		console.log('from root widget',progress)
-	},
-    render(){
-        return (
-        	<div>
-	            <Header />
-	            <div id="player"></div>
-	            <Progress progress={this.state.progress} barColor="#ff0000" onProgressChange={this.progressChangeHandler} ></Progress>
-	        </div>
-	            )
-            
-            ;
-    }
-})
 
-export default Root
+	},
 
+	render(){
+		return (
+			<div>
+
+				<Header />
+
+					<Player></Player>
+
+				</div>
+			)
+
+			;
+		}
+	})
+
+	export default Root
